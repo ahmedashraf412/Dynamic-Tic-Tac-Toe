@@ -1,0 +1,64 @@
+.input{
+    display: flex;
+    margin-bottom: 10px;
+}
+.submit-btn{
+    display: flex;
+    padding: 5px 10px;
+    margin-bottom: 10px;   
+    border: none;
+    border-radius: 5px;
+    background-color: aquamarine;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background-color: aqua;
+}
+.appContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0;
+    align-items: center;  
+    font-family: Arial, sans-serif;
+}
+.xo-game{
+    display:grid;
+    grid-template-columns:repeat(8,70px);
+    grid-template-rows: repeat(8,70px);
+
+}
+
+.xo-block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    height: 70px;
+    width: 70px;
+    font-size: 2em;
+    background-color: white;
+    cursor: pointer;
+}
+
+.xo-block:hover{
+    background-color:grey;
+}
+.restart {
+    display: flex;
+    padding: 10px 20px;
+    margin-top: 20px;   
+    border: none;
+    border-radius: 5px;
+    background-color: aquamarine;
+    cursor: pointer;
+}
+.restart:hover{
+    background-color: aqua;
+}
+.current-player{
+    margin-top: 0px;
+}
+.result{
+    margin-top: 0px;
+}
