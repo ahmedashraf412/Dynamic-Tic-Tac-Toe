@@ -10,19 +10,19 @@ let result = document.querySelector(".result");
 let newGame = document.querySelector(".restart");
 gameSubmit();
 
-function newGameFun(){
-newGame.addEventListener('click', ()=>{
-    resetGame();
+function newGameFun() {
+    newGame.addEventListener('click', () => {
+        resetGame();
         document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
         document.querySelector(".result").innerHTML = `Result: `;
-       
+
         if (rows >= 3 && columns >= 3 && winNumber >= 3) {
             buildGame(rows, columns);
             startGame();
             newGameFun();
         }
         startGame();
-});
+    });
 }
 function gameSubmit() {
     submitBtn.addEventListener("click", () => {
@@ -37,6 +37,7 @@ function gameSubmit() {
         // document.querySelector("#win-number").value = "";
         if (rows >= 3 && columns >= 3 && winNumber >= 3) {
             buildGame(rows, columns);
+            console.log(gameBlocks);
             startGame();
             newGameFun();
         }
@@ -44,10 +45,11 @@ function gameSubmit() {
             alert("Minimum Number is 3");
 
         }
-        
+
     });
 }
 function buildGame(rows, columns) {
+    let counter =0;
     document.getElementById("xo-game").style.gridTemplateColumns = `repeat(${columns},70px)`;
     document.getElementById("xo-game").style.gridTemplateRows = `repeat(${rows},70px)`;
     for (i = 0; i < (rows * columns); i++) {
@@ -56,31 +58,44 @@ function buildGame(rows, columns) {
         createBlock.id = `${i}`;
         document.querySelector('.xo-game').appendChild(createBlock);
     }
-    gameBlocks.push(...document.querySelectorAll('.xo-block'));
+    for (let i = 0; i < rows; i++) {
+        gameBlocks[i] = [];
+        for (let j = 0; j < columns; j++) {
+            gameBlocks[i][j] = document.getElementById(`${counter++}`);
+
+        }
+    }
 }
 function startGame() {
-    gameBlocks.forEach((block, index) => {
-        block.addEventListener('click', () => {
-            if (roundWon === true) {
-                return
+    for (let i = 0; i < rows; i++) {
+        console.log(gameBlocks[i]);
+        gameBlocks[i].forEach((block) => {
+
+            console.log(block);
+            block.addEventListener('click', () => {
+                if (roundWon === true) {
+                    return
+                }
+                if (result.innerHTML == `Result: ${currentPlayer} Wins!` || result.innerHTML == `Result:  ${currentPlayer} Wins!`) {
+                    return;
+                }
+                if (block.innerHTML.trim() === "") {
+                    block.innerHTML = `${currentPlayer}`;
+                    currentPlayer = currentPlayer == "X" ? currentPlayer = "O" : currentPlayer = "X";
+                    document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
+                }
+                // let countX = gameBlocks[i].filter(block => block.innerHTML === 'X').length;
+                // let countO = gameBlocks[i].filter(block => block.innerHTML === 'O').length;
+                // if (countX + countO === (rows * columns)) {
+                //     result.innerHTML = "Result: Draw!";
+                //     return; // Stop further actions if game is over
+                // }
             }
-            if (result.innerHTML == `Result: ${currentPlayer} Wins!` || result.innerHTML == `Result:  ${currentPlayer} Wins!`) {
-                return;
-            }
-            if (block.innerHTML.trim() === "") {
-                block.innerHTML = `${currentPlayer}`;
-                currentPlayer = currentPlayer == "X" ? currentPlayer = "O" : currentPlayer = "X";
-                document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
-            }
-            let countX = gameBlocks.filter(block => block.innerHTML === 'X').length;
-            let countO = gameBlocks.filter(block => block.innerHTML === 'O').length;
-            if (countX + countO === (rows * columns)) {
-                result.innerHTML = "Result: Draw!";
-                return; // Stop further actions if game is over
-            }
+
+            )
         }
         )
-    })
+    }
 }
 
 function resetGame() {
@@ -95,6 +110,6 @@ function resetGame() {
     result.innerHTML = "Result: ";
 }
 
-function win(){
+function win() {
 
 }
