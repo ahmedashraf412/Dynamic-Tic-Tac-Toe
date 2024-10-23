@@ -1,32 +1,44 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <container class="appContainer">
-    <h1 class="title">XO-GAME</h1>
-    
-    
-    <div class="container2">
-    <div class="container3">
-        <div>
-            <input id="rows" min="3" type="number" class="input" placeholder="Number of Rows">
-            <input id="columns" min="3" type="number" class="input" placeholder="Number of Columns">
-            <input id="win-number" min="3" type="number" class="input" placeholder="Win Number">
-            <button type="submit"class="submit-btn">Submit</button>
+        <h1 class="title">XO-GAME</h1>
+
+
+
+        <div class="container3">
+            <div class="container4">
+                <div class="label">
+                    <label for="rows">Number of Rows</label>
+                    <input id="rows" min="3" type="number" class="input" >
+                </div>
+                <div class="label">
+                    <label for="columns">Number of Rows</label>
+                    <input id="columns" min="3" type="number" class="input" >
+                </div>
+                <div class="label">
+                    <label for="win-number">Number of Rows</label>
+                    <input id="win-number" min="3" type="number" class="input" >
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+            <h4 class="current-player"></h4>
+            <h4 class="result">Result: </h4>
         </div>
-        <h4 class="current-player">Current Player: Player 1 </h4>
-        <h4 class="result">Result: </h4>
-    </div>
-    <div class="xo-game">
-    </div>
-    </div>
-    <button class="restart">New Game</button>
+        <div id="xo-game" class="xo-game">
+        </div>
+
+        <button class="restart">New Game</button>
     </container>
 
     <script src="index.js"></script>
 </body>
+
 </html>

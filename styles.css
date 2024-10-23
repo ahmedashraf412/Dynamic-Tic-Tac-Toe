@@ -1,9 +1,9 @@
 .input{
-    display: flex;
     margin-bottom: 10px;
 }
 .submit-btn{
     display: flex;
+    align-self: center;
     padding: 5px 10px;
     margin-bottom: 10px;   
     border: none;
@@ -24,8 +24,8 @@
 }
 .xo-game{
     display:grid;
-    grid-template-columns:repeat(8,70px);
-    grid-template-rows: repeat(8,70px);
+    /* grid-template-columns:repeat(8,70px);
+    grid-template-rows: repeat(8,70px); */
 
 }
 
@@ -61,4 +61,25 @@
 }
 .result{
     margin-top: 0px;
+}
+.container3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-player{
+    margin-bottom: 5px;
+}
+.container4{
+    display: flex;
+    flex-direction: row;
+}
+.label{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
 }
