@@ -37,7 +37,6 @@ function gameSubmit() {
         // document.querySelector("#win-number").value = "";
         if (rows >= 3 && columns >= 3 && winNumber >= 3) {
             buildGame(rows, columns);
-            console.log(gameBlocks);
             startGame();
             newGameFun();
         }
@@ -49,7 +48,7 @@ function gameSubmit() {
     });
 }
 function buildGame(rows, columns) {
-    let counter =0;
+    let counter = 0;
     document.getElementById("xo-game").style.gridTemplateColumns = `repeat(${columns},70px)`;
     document.getElementById("xo-game").style.gridTemplateRows = `repeat(${rows},70px)`;
     for (i = 0; i < (rows * columns); i++) {
@@ -65,14 +64,25 @@ function buildGame(rows, columns) {
 
         }
     }
+    for (let i = 0; i < rows; i++) {
+        history[i] = [];
+        for (let j = 0; j < columns; j++) {
+            history[i].push("");
+
+        }
+    }
 }
 function startGame() {
+    let countX = 0;
+    let countO = 0;
+    let total = 0;
     for (let i = 0; i < rows; i++) {
-        console.log(gameBlocks[i]);
-        gameBlocks[i].forEach((block) => {
 
-            console.log(block);
+        gameBlocks[i].forEach((block, index) => {
+
+            
             block.addEventListener('click', () => {
+                
                 if (roundWon === true) {
                     return
                 }
@@ -80,22 +90,43 @@ function startGame() {
                     return;
                 }
                 if (block.innerHTML.trim() === "") {
+                    console.log(`index is [${index}]`);
+                    console.log(block);
                     block.innerHTML = `${currentPlayer}`;
+                    updateHistory(i,index);
                     currentPlayer = currentPlayer == "X" ? currentPlayer = "O" : currentPlayer = "X";
                     document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
+                    
+                    if (block.innerHTML == "X") {
+                        countX++;
+                    }
+                    else if (block.innerHTML == "O") {
+                        countO++;
+                    }
+
+
+
+                    total = countX + countO;
+
+                    console.log(countX);
+                    console.log(countO);
+                    console.log(`total = ${total}`);
+
+                    if (total === (rows * columns)) {
+                        result.innerHTML = "Result: Draw!";
+                        return; // Stop further actions if game is over
+                    }
                 }
-                // let countX = gameBlocks[i].filter(block => block.innerHTML === 'X').length;
-                // let countO = gameBlocks[i].filter(block => block.innerHTML === 'O').length;
-                // if (countX + countO === (rows * columns)) {
-                //     result.innerHTML = "Result: Draw!";
-                //     return; // Stop further actions if game is over
-                // }
+
+
             }
 
             )
+
         }
         )
     }
+
 }
 
 function resetGame() {
@@ -109,7 +140,13 @@ function resetGame() {
     currentPlayer = "X";
     result.innerHTML = "Result: ";
 }
-
+function updateHistory(i,index) {
+        if (history[i][index] === "") {
+            history[i][index] = gameBlocks[i][index].innerHTML;
+            console.log(history);
+        }
+    }
+    
 function win() {
 
 }
