@@ -8,6 +8,9 @@ let currentPlayer = "X";
 let roundWon = false;
 let result = document.querySelector(".result");
 let newGame = document.querySelector(".restart");
+let num = 0;
+let counterX = 0;
+let counterO = 0;
 gameSubmit();
 
 function newGameFun() {
@@ -76,13 +79,14 @@ function startGame() {
     let countX = 0;
     let countO = 0;
     let total = 0;
+
     for (let i = 0; i < rows; i++) {
 
         gameBlocks[i].forEach((block, index) => {
 
-            
+
             block.addEventListener('click', () => {
-                
+
                 if (roundWon === true) {
                     return
                 }
@@ -93,10 +97,11 @@ function startGame() {
                     console.log(`index is [${index}]`);
                     console.log(block);
                     block.innerHTML = `${currentPlayer}`;
-                    updateHistory(i,index);
+                    updateHistory(i, index);
+                    win(history, i, index);
                     currentPlayer = currentPlayer == "X" ? currentPlayer = "O" : currentPlayer = "X";
                     document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
-                    
+
                     if (block.innerHTML == "X") {
                         countX++;
                     }
@@ -112,14 +117,19 @@ function startGame() {
                     console.log(countO);
                     console.log(`total = ${total}`);
 
-                    if (total === (rows * columns)) {
-                        result.innerHTML = "Result: Draw!";
-                        return; // Stop further actions if game is over
-                    }
+
+
+
                 }
-
-
+                if (total === (rows * columns)) {
+                    result.innerHTML = "Result: Draw!";
+                    return; // Stop further actions if game is over
+                }
             }
+
+
+
+
 
             )
 
@@ -140,13 +150,146 @@ function resetGame() {
     currentPlayer = "X";
     result.innerHTML = "Result: ";
 }
-function updateHistory(i,index) {
-        if (history[i][index] === "") {
-            history[i][index] = gameBlocks[i][index].innerHTML;
-            console.log(history);
+function updateHistory(i, index) {
+    if (history[i][index] === "") {
+        history[i][index] = gameBlocks[i][index].innerHTML;
+        console.log(history);
+    }
+}
+
+function win(history, i, index) {
+
+    if (history[i][index] == "X") {
+        console.log(`I found ${history[i][index]} AT [${i}][${index}] `);
+        counterX = 1;
+        let symbol = "X";
+        catchX(symbol, counterX, history, i, index);
+
+
+
+
+    }
+    else if (history[i][index] == "O") {
+        console.log(`I found ${history[i][index]} AT [${i}][${index}] `);
+        counterO = 1;
+        let symbol = "O";
+        catchX(symbol, counterO, history, i, index);
+
+    }
+
+}
+
+function catchX(symbol, counter, arr, i, index) {
+    console.log(i, index)
+
+    let topLeft = i == 0 || arr[i - 1][index - 1] == undefined ? false : arr[i - 1][index - 1];
+    console.log(`topLeft is ${topLeft}`);
+    let top = i == 0 || arr[i - 1][index] == undefined ? false : arr[i - 1][index];
+    console.log(`top is ${top}`);
+    let topRight = i == 0 || arr[i - 1][index + 1] == undefined ? false : arr[i - 1][index + 1];
+    console.log(`topRight is ${topRight}`);
+    let midLeft = arr[i][index - 1] == undefined ? false : arr[i][index - 1];
+    console.log(`midLeft is ${midLeft}`);
+    let midRight = arr[i][index + 1] == undefined ? false : arr[i][index + 1];
+    console.log(`midRight is ${midRight}`);
+    let botLeft = i == (arr.length - 1) || arr[i + 1][index - 1] == undefined ? false : arr[i + 1][index - 1];
+    console.log(`botLeft is ${botLeft}`);
+    let bot = i == (arr.length - 1) || arr[i + 1][index] == undefined ? false : arr[i + 1][index];
+    console.log(`bot is ${bot}`);
+    let botRight = i == (arr.length - 1) || arr[i + 1][index + 1] == undefined ? false : arr[i + 1][index + 1];
+    console.log(`botRight is ${botRight}`);
+
+    if (midLeft == symbol || midRight == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+        if ((counter == 2 && midLeft == symbol)) {
+            getAdjacent(symbol, counter, arr, i, (index - 1));
+
+        }
+        else if ((counter == 2 && midRight == symbol))
+            getAdjacent(symbol, counter, arr, i, (index + 1));
+        if (counter == 2) {
+            getAdjacent(symbol, counter, arr, i, (index));
         }
     }
-    
-function win() {
+    else if (top == symbol || bot == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+        if ((counter == 2 && top == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index));
 
+        }
+        else if ((counter == 2 && bot == symbol))
+            getAdjacent(symbol, counter, arr, (i + 1), (index));
+        if (counter == 2) {
+            getAdjacent(symbol, counter, arr, i, (index));
+        }
+    }
+    else if (topLeft == symbol || botRight == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+        if ((counter == 2 && topLeft == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index - 1));
+
+        }
+        else if ((counter == 2 && botRight == symbol))
+            getAdjacent(symbol, counter, arr, (i + 1), (index + 1));
+        if (counter == 2) {
+            getAdjacent(symbol, counter, arr, i, (index));
+        }
+    }
+    else if (topRight == symbol || botLeft == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+        if ((counter == 2 && topRight == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index + 1));
+
+        }
+        else if ((counter == 2 && botLeft == symbol))
+            getAdjacent(symbol, counter, arr, (i + 1), (index - 1));
+        if (counter == 2) {
+            getAdjacent(symbol, counter, arr, i, (index));
+        }
+    }
+
+
+
+}
+
+function getAdjacent(symbol, counter, arr, i, index) {
+    let topLeft = i == 0 || arr[i - 1][index - 1] == undefined ? false : arr[i - 1][index - 1];
+    console.log(`topLeft is ${topLeft}`);
+    let top = i == 0 || arr[i - 1][index] == undefined ? false : arr[i - 1][index];
+    console.log(`top is ${top}`);
+    let topRight = i == 0 || arr[i - 1][index + 1] == undefined ? false : arr[i - 1][index + 1];
+    console.log(`topRight is ${topRight}`);
+    let midLeft = arr[i][index - 1] == undefined ? false : arr[i][index - 1];
+    console.log(`midLeft is ${midLeft}`);
+    let midRight = arr[i][index + 1] == undefined ? false : arr[i][index + 1];
+    console.log(`midRight is ${midRight}`);
+    let botLeft = i == (arr.length - 1) || arr[i + 1][index - 1] == undefined ? false : arr[i + 1][index - 1];
+    console.log(`botLeft is ${botLeft}`);
+    let bot = i == (arr.length - 1) || arr[i + 1][index] == undefined ? false : arr[i + 1][index];
+    console.log(`bot is ${bot}`);
+    let botRight = i == (arr.length - 1) || arr[i + 1][index + 1] == undefined ? false : arr[i + 1][index + 1];
+    console.log(`botRight is ${botRight}`);
+
+    if (midLeft == symbol && midRight == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+
+
+    }
+    else if (top == symbol && bot == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+    }
+    else if (topLeft == symbol && botRight == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+    }
+    else if (topRight == symbol && botLeft == symbol) {
+        counter++
+        console.log(`Counter ${symbol} is now ${counter}`);
+    }
 }
