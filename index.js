@@ -48,12 +48,17 @@ function gameSubmit() {
         if ((rows >= 3 ) && columns >= 3 && (winNumber >= 3) && (winNumber <= rows) && (winNumber <= columns)) {
             document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
             document.querySelector(".result").innerHTML = `Result: `;
+            document.querySelector(".current-player").style.display = "block";
+            document.querySelector(".result").style.display = "block";
             buildGame(rows, columns);
             startGame();
             newGameFun();
         }
         else {
             alert("Minimum Number is 3, Number of wins must be less than or equal number of rows and coloumns");
+            document.querySelector(".current-player").style.display = "none";
+            document.querySelector(".result").style.display = "none";
+            document.querySelector(".restart").style.display ="none";
 
         }
 
