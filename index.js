@@ -1,4 +1,5 @@
 const submitBtn = document.querySelector('.submit-btn');
+let reverseCount;
 let rows = 0;
 let columns = 0;
 let winNumber = 0;
@@ -9,11 +10,14 @@ let roundWon = false;
 let result = document.querySelector(".result");
 let newGame = document.querySelector(".restart");
 let num = 0;
-let counterX = 0;
-let counterO = 0;
+let counterX = 1;
+let counterO = 1;
+let counter1 = 0;
+let counter2 = 0;
 gameSubmit();
 
 function newGameFun() {
+    roundWon = false;
     newGame.addEventListener('click', () => {
         resetGame();
         document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
@@ -24,10 +28,14 @@ function newGameFun() {
             startGame();
             newGameFun();
         }
-        startGame();
+        else {
+            alert("Minimum Number is 3");
+
+        }
     });
 }
 function gameSubmit() {
+    roundWon = false;
     submitBtn.addEventListener("click", () => {
         resetGame();
         document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
@@ -38,13 +46,13 @@ function gameSubmit() {
         // document.querySelector("#rows").value = "";
         // document.querySelector("#columns").value = "";
         // document.querySelector("#win-number").value = "";
-        if (rows >= 3 && columns >= 3 && winNumber >= 3) {
+        if (rows >= 3 && columns >= 3 && winNumber >= 3 && winNumber <= rows && winNumber <= columns) {
             buildGame(rows, columns);
             startGame();
             newGameFun();
         }
         else {
-            alert("Minimum Number is 3");
+            alert("Minimum Number is 3, Number of wins must be less than or equal number of rows and coloumns");
 
         }
 
@@ -79,6 +87,9 @@ function startGame() {
     let countX = 0;
     let countO = 0;
     let total = 0;
+    if (roundWon === true) {
+        return
+    }
 
     for (let i = 0; i < rows; i++) {
 
@@ -86,10 +97,10 @@ function startGame() {
 
 
             block.addEventListener('click', () => {
-
                 if (roundWon === true) {
                     return
                 }
+                
                 if (result.innerHTML == `Result: ${currentPlayer} Wins!` || result.innerHTML == `Result:  ${currentPlayer} Wins!`) {
                     return;
                 }
@@ -140,6 +151,7 @@ function startGame() {
 }
 
 function resetGame() {
+    roundWon = false;
     if (document.querySelector(".xo-game").firstChild == null) {
         return
     }
@@ -164,7 +176,7 @@ function win(history, i, index) {
         counterX = 1;
         let symbol = "X";
         catchX(symbol, counterX, history, i, index);
-
+        
 
 
 
@@ -174,6 +186,7 @@ function win(history, i, index) {
         counterO = 1;
         let symbol = "O";
         catchX(symbol, counterO, history, i, index);
+
 
     }
 
@@ -202,94 +215,257 @@ function catchX(symbol, counter, arr, i, index) {
     if (midLeft == symbol || midRight == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if ((counter == 2 && midLeft == symbol)) {
-            getAdjacent(symbol, counter, arr, i, (index - 1));
+        if (counter == 2 && midLeft == symbol && midRight == symbol) {
+            getAdjacent(symbol, counter, arr, i, (index), false);
+            console.log(`Counter 1 is ${counter1}`);
+            console.log(`Counter 2 is ${counter2}`);
+            if(counter2 < counter1 ){
+                getAdjacent(symbol, counter, arr, i, (index), true);
+                console.log(`Counter 1 is ${counter1}`);
+                console.log(`Counter 2 is ${counter2}`);
+                counter = counter1 + counter2;
+                console.log(`Count ${symbol} is = ${counter}`);
+                if(counter == winNumber){
+                    result.innerHTML = `${symbol} WON !`;
+                    return roundWon = true;
+                }
+            }
+        }
+        else if ((counter == 2 && midLeft == symbol)) {
+            
+            getAdjacent(symbol, counter, arr, i, (index - 1), false);
 
         }
         else if ((counter == 2 && midRight == symbol))
-            getAdjacent(symbol, counter, arr, i, (index + 1));
-        if (counter == 2) {
-            getAdjacent(symbol, counter, arr, i, (index));
-        }
+            
+            getAdjacent(symbol, counter, arr, i, (index + 1), true);
+        
     }
     else if (top == symbol || bot == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if ((counter == 2 && top == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index));
+        if (counter == 2 && top == symbol && bot == symbol) {
+            getAdjacent(symbol, counter, arr, i, (index), false);
+            console.log(`Counter 1 is ${counter1}`);
+            console.log(`Counter 2 is ${counter2}`);
+            if(counter2 < counter1 ){
+                getAdjacent(symbol, counter, arr, i, (index), true);
+                console.log(`Counter 1 is ${counter1}`);
+                console.log(`Counter 2 is ${counter2}`);
+                counter = counter1 + counter2;
+                console.log(`Count ${symbol} is = ${counter}`);
+                if(counter == winNumber){
+                    result.innerHTML = `${symbol} WON !`;
+                    return roundWon = true;
+                }
+            }
+        }
+        else if ((counter == 2 && top == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index),false);
 
         }
         else if ((counter == 2 && bot == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index));
-        if (counter == 2) {
-            getAdjacent(symbol, counter, arr, i, (index));
-        }
+            getAdjacent(symbol, counter, arr, (i + 1), (index), true);
+        
     }
     else if (topLeft == symbol || botRight == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if ((counter == 2 && topLeft == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index - 1));
+        if (counter == 2 && topLeft == symbol && botRight == symbol) {
+            getAdjacent(symbol, counter, arr, i, (index), false);
+            console.log(`Counter 1 is ${counter1}`);
+            console.log(`Counter 2 is ${counter2}`);
+            if(counter2 < counter1 ){
+                getAdjacent(symbol, counter, arr, i, (index), true);
+                console.log(`Counter 1 is ${counter1}`);
+                console.log(`Counter 2 is ${counter2}`);
+                counter = counter1 + counter2;
+                console.log(`Count ${symbol} is = ${counter}`);
+                if(counter == winNumber){
+                    result.innerHTML = `${symbol} WON !`;
+                    return roundWon = true;
+                }
+            }
+        }
+        else if ((counter == 2 && topLeft == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index - 1),false);
 
         }
         else if ((counter == 2 && botRight == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index + 1));
-        if (counter == 2) {
-            getAdjacent(symbol, counter, arr, i, (index));
-        }
+            getAdjacent(symbol, counter, arr, (i + 1), (index + 1),true);
+        
     }
     else if (topRight == symbol || botLeft == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if ((counter == 2 && topRight == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index + 1));
+        if (counter == 2 && topRight == symbol && botLeft == symbol) {
+            getAdjacent(symbol, counter, arr, i, (index), false);
+            console.log(`Counter 1 is ${counter1}`);
+            console.log(`Counter 2 is ${counter2}`);
+            if(counter2 < counter1 ){
+                getAdjacent(symbol, counter, arr, i, (index), true);
+                console.log(`Counter 1 is ${counter1}`);
+                console.log(`Counter 2 is ${counter2}`);
+                counter = counter1 + counter2;
+                console.log(`Count ${symbol} is = ${counter}`);
+                if(counter == winNumber){
+                    result.innerHTML = `${symbol} WON !`;
+                    return roundWon = true;
+                }
+            }
+        }
+        else if ((counter == 2 && topRight == symbol)) {
+            getAdjacent(symbol, counter, arr, (i - 1), (index + 1),false);
 
         }
         else if ((counter == 2 && botLeft == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index - 1));
-        if (counter == 2) {
-            getAdjacent(symbol, counter, arr, i, (index));
-        }
+            getAdjacent(symbol, counter, arr, (i + 1), (index - 1),true);
+        
     }
 
+    
 
 
 }
 
-function getAdjacent(symbol, counter, arr, i, index) {
-    let topLeft = i == 0 || arr[i - 1][index - 1] == undefined ? false : arr[i - 1][index - 1];
+function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
+    console.log(`hi i am the number now ${number}`);
+    
+    let topLeft = i == 0 || arr[i - 1][number - 1] == undefined ? false : arr[i - 1][number - 1];
     console.log(`topLeft is ${topLeft}`);
-    let top = i == 0 || arr[i - 1][index] == undefined ? false : arr[i - 1][index];
+    let top = i == 0 || arr[i - 1][number] == undefined ? false : arr[i - 1][number];
     console.log(`top is ${top}`);
-    let topRight = i == 0 || arr[i - 1][index + 1] == undefined ? false : arr[i - 1][index + 1];
+    let topRight = i == 0 || arr[i - 1][number + 1] == undefined ? false : arr[i - 1][number + 1];
     console.log(`topRight is ${topRight}`);
-    let midLeft = arr[i][index - 1] == undefined ? false : arr[i][index - 1];
+    let midLeft = arr[i][number - 1] == undefined ? false : arr[i][number - 1];
     console.log(`midLeft is ${midLeft}`);
-    let midRight = arr[i][index + 1] == undefined ? false : arr[i][index + 1];
+    let midRight = arr[i][number + 1] == undefined ? false : arr[i][number + 1];
     console.log(`midRight is ${midRight}`);
-    let botLeft = i == (arr.length - 1) || arr[i + 1][index - 1] == undefined ? false : arr[i + 1][index - 1];
+    let botLeft = i == (arr.length - 1) || arr[i + 1][number - 1] == undefined ? false : arr[i + 1][number - 1];
     console.log(`botLeft is ${botLeft}`);
-    let bot = i == (arr.length - 1) || arr[i + 1][index] == undefined ? false : arr[i + 1][index];
+    let bot = i == (arr.length - 1) || arr[i + 1][number] == undefined ? false : arr[i + 1][number];
     console.log(`bot is ${bot}`);
-    let botRight = i == (arr.length - 1) || arr[i + 1][index + 1] == undefined ? false : arr[i + 1][index + 1];
+    let botRight = i == (arr.length - 1) || arr[i + 1][number + 1] == undefined ? false : arr[i + 1][number + 1];
     console.log(`botRight is ${botRight}`);
 
     if (midLeft == symbol && midRight == symbol) {
         counter++
+        console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
-
+        if(counter == winNumber){
+            result.innerHTML = `${symbol} WON !`;
+            return roundWon = true;
+        }
+        
+        // if(counter >= 3 && counter < winNumber &&  midLeft == symbol && midRight == symbol){
+        //     getAdjacent(symbol, counter, arr, i, (number));
+        // }
+        if (counter >= 3 && counter < winNumber &&  midLeft == symbol && reverseCount == false){
+            counter1 = counter;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes straight [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, i, (number-1),false);
+            
+           // console.log(`hi again i am the counter ${counter}`);
+        }
+        else if (counter >= 3 && counter < winNumber &&  midRight == symbol && reverseCount == true){
+            counter2 = counter-3;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes reverse  [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, i, (number+1),true);
+        }
 
     }
     else if (top == symbol && bot == symbol) {
         counter++
+        console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
+        if(counter == winNumber){
+            result.innerHTML = `${symbol} WON !`;
+            return roundWon = true;
+        }
+        if (counter >= 3 && counter < winNumber && top == symbol && reverseCount == false){
+            counter1 = counter;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes straight[${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i-1), (number),false);
+            // console.log(`hi again i am the counter ${counter}`);
+        }
+        else if (counter >= 3 && counter < winNumber && bot == symbol && reverseCount == true){
+            counter2 = counter-3;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes reverse [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i+1), (number),true);
+        }
     }
     else if (topLeft == symbol && botRight == symbol) {
         counter++
+        console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
+        if(counter == winNumber){
+            result.innerHTML = `${symbol} WON !`;
+            return roundWon = true;
+        }
+        if (counter >= 3 && counter < winNumber && topLeft == symbol && reverseCount == false){
+            counter1 = counter;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes straight [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i-1), (number-1), false);
+            // console.log(`hi again i am the counter ${counter}`);
+        }
+        else if (counter >= 3 && counter < winNumber && botRight == symbol && reverseCount == true){
+            counter2 = counter-3;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes reverse [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i+1), (number+1), true);
+        }
     }
     else if (topRight == symbol && botLeft == symbol) {
         counter++
+        console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
+        if(counter == winNumber){
+            result.innerHTML = `${symbol} WON !`;
+            return roundWon = true;
+        }
+        if (counter >= 3 && counter < winNumber && topRight == symbol && reverseCount == false){
+            counter1 = counter;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes straight [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i-1), (number+1), false);
+            // console.log(`hi again i am the counter ${counter}`);
+        }
+        else if (counter >= 3 && counter < winNumber && botLeft == symbol && reverseCount == true){
+            counter2 = counter-3;
+            if(counter == winNumber){
+                result.innerHTML = `${symbol} WON !`;
+                return roundWon = true;
+            }
+            console.log(`hello i am the numberes reverse [${i}],[${number}]`);
+            getAdjacent(symbol, counter, arr, (i+1), (number-1), true);
+        }
     }
+    
+    
 }
