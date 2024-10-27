@@ -23,7 +23,7 @@ function newGameFun() {
         document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
         document.querySelector(".result").innerHTML = `Result: `;
 
-        if (rows >= 3 && columns >= 3 && winNumber >= 3) {
+        if ((rows >= 3 ) && columns >= 3 && (winNumber >= 3) && (winNumber <= rows) && (winNumber <= columns)) {
             buildGame(rows, columns);
             startGame();
             newGameFun();
@@ -38,15 +38,16 @@ function gameSubmit() {
     roundWon = false;
     submitBtn.addEventListener("click", () => {
         resetGame();
-        document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
-        document.querySelector(".result").innerHTML = `Result: `;
-        rows = document.querySelector("#rows").value;
-        columns = document.querySelector("#columns").value;
-        winNumber = document.querySelector("#win-number").value;
+        
+        rows = parseInt(document.querySelector("#rows").value);
+        columns = parseInt(document.querySelector("#columns").value);
+        winNumber = parseInt(document.querySelector("#win-number").value);
         // document.querySelector("#rows").value = "";
         // document.querySelector("#columns").value = "";
         // document.querySelector("#win-number").value = "";
-        if (rows >= 3 && columns >= 3 && winNumber >= 3 && winNumber <= rows && winNumber <= columns) {
+        if ((rows >= 3 ) && columns >= 3 && (winNumber >= 3) && (winNumber <= rows) && (winNumber <= columns)) {
+            document.querySelector(".current-player").innerHTML = `Current Player: ${currentPlayer}`;
+            document.querySelector(".result").innerHTML = `Result: `;
             buildGame(rows, columns);
             startGame();
             newGameFun();
@@ -59,6 +60,7 @@ function gameSubmit() {
     });
 }
 function buildGame(rows, columns) {
+    document.querySelector(".restart").style.display ="block";
     let counter = 0;
     document.getElementById("xo-game").style.gridTemplateColumns = `repeat(${columns},70px)`;
     document.getElementById("xo-game").style.gridTemplateRows = `repeat(${rows},70px)`;
