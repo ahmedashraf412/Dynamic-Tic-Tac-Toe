@@ -14,7 +14,7 @@ let counterX = 1;
 let counterO = 1;
 let counter1 = 0;
 let counter2 = 0;
-
+let mouseCursor;
 
 gameSubmit();
 
@@ -67,6 +67,7 @@ function gameSubmit() {
     });
 }
 function buildGame(rows, columns) {
+    
     document.querySelector(".restart").style.display ="block";
     let counter = 0;
     document.getElementById("xo-game").style.gridTemplateColumns = `repeat(${columns},70px)`;
@@ -91,6 +92,11 @@ function buildGame(rows, columns) {
 
         }
     }
+    if(currentPlayer == "X"){
+        document.querySelectorAll(".xo-block").forEach((element)=>{
+            element.style.cursor = "cell";
+        })
+    }
 }
 function startGame() {
     let countX = 0;
@@ -106,6 +112,7 @@ function startGame() {
 
 
             block.addEventListener('click', () => {
+     
                 if (roundWon === true) {
                     return
                 }
@@ -144,6 +151,16 @@ function startGame() {
                 if (total === (rows * columns)) {
                     result.innerHTML = "Result: Draw!";
                     return; // Stop further actions if game is over
+                }
+                if(currentPlayer == "X"){
+                    document.querySelectorAll(".xo-block").forEach((element)=>{
+                        element.style.cursor = "cell";
+                    })
+                }
+                else if(currentPlayer == "O"){
+                    document.querySelectorAll(".xo-block").forEach((element)=>{
+                        element.style.cursor ="not-allowed";
+                    })
                 }
             }
 
