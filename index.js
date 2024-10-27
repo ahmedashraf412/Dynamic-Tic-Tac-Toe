@@ -15,8 +15,7 @@ let counterO = 1;
 let counter1 = 0;
 let counter2 = 0;
 
-//hhhg
-document.querySelector(".result").style.display = "none";
+
 gameSubmit();
 
 function newGameFun() {
