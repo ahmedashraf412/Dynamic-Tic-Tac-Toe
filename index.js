@@ -148,7 +148,7 @@ function startGame() {
 
 
                 }
-                if (total === (rows * columns)) {
+                if (total === (rows * columns) && roundWon == false) {
                     result.innerHTML = "Result: Draw!";
                     return; // Stop further actions if game is over
                 }
