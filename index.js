@@ -14,6 +14,8 @@ let counterX = 1;
 let counterO = 1;
 let counter1 = 0;
 let counter2 = 0;
+
+//hhhg
 gameSubmit();
 
 function newGameFun() {
