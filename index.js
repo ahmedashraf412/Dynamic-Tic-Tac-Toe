@@ -15,6 +15,7 @@ let counterO = 1;
 let counter1 = 0;
 let counter2 = 0;
 let mouseCursor;
+let value;
 
 gameSubmit();
 
@@ -241,12 +242,14 @@ function catchX(symbol, counter, arr, i, index) {
     if (midLeft == symbol || midRight == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if (counter == 2 && midLeft == symbol && midRight == symbol && (top != symbol && bot != symbol) ) {
-            getAdjacent(symbol, counter, arr, i, (index), false);
+        if (counter == 2 && midLeft == symbol && midRight == symbol) {
+            value = 1;
+            getAdjacent(symbol, counter, arr, i, (index), false, value);
             console.log(`Counter 1 is ${counter1}`);
             console.log(`Counter 2 is ${counter2}`);
             if(counter2 < counter1 ){
-                getAdjacent(symbol, counter, arr, i, (index), true);
+                value = 1;
+                getAdjacent(symbol, counter, arr, i, (index), true, value);
                 console.log(`Counter 1 is ${counter1}`);
                 console.log(`Counter 2 is ${counter2}`);
                 counter = counter1 + counter2;
@@ -257,14 +260,14 @@ function catchX(symbol, counter, arr, i, index) {
                 }
             }
         }
-        else if (counter == 2 && midLeft == symbol && (top != symbol && bot != symbol) ) {
-            
-            getAdjacent(symbol, counter, arr, i, (index - 1), false);
+        else if (counter == 2 && midLeft == symbol  ) {
+            value = 1;
+            getAdjacent(symbol, counter, arr, i, (index - 1), false, value);
 
         }
-        else if (counter == 2 && midRight == symbol && (top != symbol && bot != symbol ) )
-            
-            getAdjacent(symbol, counter, arr, i, (index + 1), true);
+        else if (counter == 2 && midRight == symbol  )
+            value = 1;
+            getAdjacent(symbol, counter, arr, i, (index + 1), true, value);
         
     }
      if (top == symbol || bot == symbol) {
@@ -274,11 +277,13 @@ function catchX(symbol, counter, arr, i, index) {
         
         console.log(`Counter ${symbol} is now ${counter}`);
         if (counter == 2 && top == symbol && bot == symbol) {
-            getAdjacent(symbol, counter, arr, i, (index), false);
+            value = 2;
+            getAdjacent(symbol, counter, arr, i, (index), false,value);
             console.log(`Counter 1 is ${counter1}`);
             console.log(`Counter 2 is ${counter2}`);
             if(counter2 < counter1 ){
-                getAdjacent(symbol, counter, arr, i, (index), true);
+                value = 2;
+                getAdjacent(symbol, counter, arr, i, (index), true,value);
                 console.log(`Counter 1 is ${counter1}`);
                 console.log(`Counter 2 is ${counter2}`);
                 counter = counter1 + counter2;
@@ -290,22 +295,28 @@ function catchX(symbol, counter, arr, i, index) {
             }
         }
         else if ((counter == 2 && top == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index),false);
+            value = 2;
+            getAdjacent(symbol, counter, arr, (i - 1), (index),false,value);
 
         }
         else if ((counter == 2 && bot == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index), true);
+            value = 2;
+            getAdjacent(symbol, counter, arr, (i + 1), (index), true,value);
         
     }
      if (topLeft == symbol || botRight == symbol) {
-        counter++
+        if( counter < 2 ) {
+            counter++
+        }
         console.log(`Counter ${symbol} is now ${counter}`);
         if (counter == 2 && topLeft == symbol && botRight == symbol) {
-            getAdjacent(symbol, counter, arr, i, (index), false);
+            value = 3;
+            getAdjacent(symbol, counter, arr, i, (index), false,value);
             console.log(`Counter 1 is ${counter1}`);
             console.log(`Counter 2 is ${counter2}`);
             if(counter2 < counter1 ){
-                getAdjacent(symbol, counter, arr, i, (index), true);
+                value = 3;
+                getAdjacent(symbol, counter, arr, i, (index), true, value);
                 console.log(`Counter 1 is ${counter1}`);
                 console.log(`Counter 2 is ${counter2}`);
                 counter = counter1 + counter2;
@@ -317,22 +328,28 @@ function catchX(symbol, counter, arr, i, index) {
             }
         }
         else if ((counter == 2 && topLeft == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index - 1),false);
+            value = 3;
+            getAdjacent(symbol, counter, arr, (i - 1), (index - 1),false,value);
 
         }
         else if ((counter == 2 && botRight == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index + 1),true);
+            value = 3;
+            getAdjacent(symbol, counter, arr, (i + 1), (index + 1),true,value);
         
     }
      if (topRight == symbol || botLeft == symbol) {
-        counter++
+        if( counter < 2 ) {
+            counter++
+        }
         console.log(`Counter ${symbol} is now ${counter}`);
         if (counter == 2 && topRight == symbol && botLeft == symbol) {
-            getAdjacent(symbol, counter, arr, i, (index), false);
+            value = 4;
+            getAdjacent(symbol, counter, arr, i, (index), false,value);
             console.log(`Counter 1 is ${counter1}`);
             console.log(`Counter 2 is ${counter2}`);
             if(counter2 < counter1 ){
-                getAdjacent(symbol, counter, arr, i, (index), true);
+                value = 4;
+                getAdjacent(symbol, counter, arr, i, (index), true,value);
                 console.log(`Counter 1 is ${counter1}`);
                 console.log(`Counter 2 is ${counter2}`);
                 counter = counter1 + counter2;
@@ -344,11 +361,13 @@ function catchX(symbol, counter, arr, i, index) {
             }
         }
         else if ((counter == 2 && topRight == symbol)) {
-            getAdjacent(symbol, counter, arr, (i - 1), (index + 1),false);
+            value = 4;
+            getAdjacent(symbol, counter, arr, (i - 1), (index + 1),false,value);
 
         }
         else if ((counter == 2 && botLeft == symbol))
-            getAdjacent(symbol, counter, arr, (i + 1), (index - 1),true);
+            value = 4;
+            getAdjacent(symbol, counter, arr, (i + 1), (index - 1),true,value);
         
     }
 
@@ -357,7 +376,7 @@ function catchX(symbol, counter, arr, i, index) {
 
 }
 
-function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
+function getAdjacent(symbol, counter, arr, i, number, reverseCount, value) {
     console.log(`hi i am the number now ${number}`);
     
     let topLeft = i == 0 || arr[i - 1][number - 1] == undefined ? false : arr[i - 1][number - 1];
@@ -377,11 +396,11 @@ function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
     let botRight = i == (arr.length - 1) || arr[i + 1][number + 1] == undefined ? false : arr[i + 1][number + 1];
     console.log(`botRight is ${botRight}`);
 
-    if (midLeft == symbol && midRight == symbol) {
+    if (midLeft == symbol && midRight == symbol && value == 1) {
         counter++
         console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
-        if(counter == winNumber){
+        if(counter == winNumber ){
             result.innerHTML = `${symbol} WON !`;
             return roundWon = true;
         }
@@ -389,29 +408,29 @@ function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
         // if(counter >= 3 && counter < winNumber &&  midLeft == symbol && midRight == symbol){
         //     getAdjacent(symbol, counter, arr, i, (number));
         // }
-        if (counter >= 3 && counter < winNumber &&  midLeft == symbol && reverseCount == false){
+        if (counter >= 3 && counter < winNumber &&  midLeft == symbol && reverseCount == false && value == 1){
             counter1 = counter;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes straight [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, i, (number-1),false);
+            getAdjacent(symbol, counter, arr, i, (number-1),false,value);
             
            // console.log(`hi again i am the counter ${counter}`);
         }
-        else if (counter >= 3 && counter < winNumber &&  midRight == symbol && reverseCount == true){
+        else if (counter >= 3 && counter < winNumber &&  midRight == symbol && reverseCount == true && value == 1){
             counter2 = counter-3;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes reverse  [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, i, (number+1),true);
+            getAdjacent(symbol, counter, arr, i, (number+1),true,value);
         }
 
     }
-    else if (top == symbol && bot == symbol) {
+    else if (top == symbol && bot == symbol && value == 2) {
         counter++
         console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
@@ -419,27 +438,27 @@ function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
             result.innerHTML = `${symbol} WON !`;
             return roundWon = true;
         }
-        if (counter >= 3 && counter < winNumber && top == symbol && reverseCount == false){
+        if (counter >= 3 && counter < winNumber && top == symbol && reverseCount == false && value == 2){
             counter1 = counter;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes straight[${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i-1), (number),false);
+            getAdjacent(symbol, counter, arr, (i-1), (number),false,value);
             // console.log(`hi again i am the counter ${counter}`);
         }
-        else if (counter >= 3 && counter < winNumber && bot == symbol && reverseCount == true){
+        else if (counter >= 3 && counter < winNumber && bot == symbol && reverseCount == true && value == 2){
             counter2 = counter-3;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes reverse [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i+1), (number),true);
+            getAdjacent(symbol, counter, arr, (i+1), (number),true,value);
         }
     }
-    else if (topLeft == symbol && botRight == symbol) {
+    else if (topLeft == symbol && botRight == symbol && value == 3) {
         counter++
         console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
@@ -447,27 +466,27 @@ function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
             result.innerHTML = `${symbol} WON !`;
             return roundWon = true;
         }
-        if (counter >= 3 && counter < winNumber && topLeft == symbol && reverseCount == false){
+        if (counter >= 3 && counter < winNumber && topLeft == symbol && reverseCount == false && value == 3){
             counter1 = counter;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes straight [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i-1), (number-1), false);
+            getAdjacent(symbol, counter, arr, (i-1), (number-1), false,value);
             // console.log(`hi again i am the counter ${counter}`);
         }
-        else if (counter >= 3 && counter < winNumber && botRight == symbol && reverseCount == true){
+        else if (counter >= 3 && counter < winNumber && botRight == symbol && reverseCount == true && value == 3){
             counter2 = counter-3;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes reverse [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i+1), (number+1), true);
+            getAdjacent(symbol, counter, arr, (i+1), (number+1), true,value);
         }
     }
-    else if (topRight == symbol && botLeft == symbol) {
+    else if (topRight == symbol && botLeft == symbol && value == 4) {
         counter++
         console.log(`hello i am the numberes  [${i}],[${number}]`);
         console.log(`Counter ${symbol} is now ${counter}`);
@@ -475,24 +494,24 @@ function getAdjacent(symbol, counter, arr, i, number, reverseCount) {
             result.innerHTML = `${symbol} WON !`;
             return roundWon = true;
         }
-        if (counter >= 3 && counter < winNumber && topRight == symbol && reverseCount == false){
+        if (counter >= 3 && counter < winNumber && topRight == symbol && reverseCount == false && value == 4){
             counter1 = counter;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes straight [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i-1), (number+1), false);
+            getAdjacent(symbol, counter, arr, (i-1), (number+1), false,value);
             // console.log(`hi again i am the counter ${counter}`);
         }
-        else if (counter >= 3 && counter < winNumber && botLeft == symbol && reverseCount == true){
+        else if (counter >= 3 && counter < winNumber && botLeft == symbol && reverseCount == true && value == 4){
             counter2 = counter-3;
             if(counter == winNumber){
                 result.innerHTML = `${symbol} WON !`;
                 return roundWon = true;
             }
             console.log(`hello i am the numberes reverse [${i}],[${number}]`);
-            getAdjacent(symbol, counter, arr, (i+1), (number-1), true);
+            getAdjacent(symbol, counter, arr, (i+1), (number-1), true,value);
         }
     }
     
