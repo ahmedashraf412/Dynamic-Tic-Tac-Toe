@@ -241,7 +241,7 @@ function catchX(symbol, counter, arr, i, index) {
     if (midLeft == symbol || midRight == symbol) {
         counter++
         console.log(`Counter ${symbol} is now ${counter}`);
-        if (counter == 2 && midLeft == symbol && midRight == symbol) {
+        if (counter == 2 && midLeft == symbol && midRight == symbol && (top != symbol && bot != symbol) ) {
             getAdjacent(symbol, counter, arr, i, (index), false);
             console.log(`Counter 1 is ${counter1}`);
             console.log(`Counter 2 is ${counter2}`);
@@ -257,12 +257,12 @@ function catchX(symbol, counter, arr, i, index) {
                 }
             }
         }
-        else if ((counter == 2 && midLeft == symbol)) {
+        else if (counter == 2 && midLeft == symbol && (top != symbol && bot != symbol) ) {
             
             getAdjacent(symbol, counter, arr, i, (index - 1), false);
 
         }
-        else if ((counter == 2 && midRight == symbol))
+        else if (counter == 2 && midRight == symbol && (top != symbol && bot != symbol )
             
             getAdjacent(symbol, counter, arr, i, (index + 1), true);
         
