@@ -258,6 +258,30 @@ function catchX(symbol, counter, arr, i, index) {
                     result.innerHTML = `${symbol} WON !`;
                     return roundWon = true;
                 }
+                if(counter2 < counter1 ){
+                    value = 2;
+                    getAdjacent(symbol, counter, arr, (i), (index), false, value);
+                    console.log(`Counter 1 is ${counter1}`);
+                    console.log(`Counter 2 is ${counter2}`);
+                    counter = counter1 + counter2;
+                    console.log(`Count ${symbol} is = ${counter}`);
+                    if(counter == winNumber){
+                        result.innerHTML = `${symbol} WON !`;
+                        return roundWon = true;
+                    }
+                    if(counter2 < counter1 ){
+                        value = 2;
+                        getAdjacent(symbol, counter, arr, (i), (index), true, value);
+                        console.log(`Counter 1 is ${counter1}`);
+                        console.log(`Counter 2 is ${counter2}`);
+                        counter = counter1 + counter2;
+                        console.log(`Count ${symbol} is = ${counter}`);
+                        if(counter == winNumber){
+                            result.innerHTML = `${symbol} WON !`;
+                            return roundWon = true;
+                        }
+                    }
+                }
             }
         }
         else if (counter == 2 && midLeft == symbol  ) {
@@ -292,6 +316,30 @@ function catchX(symbol, counter, arr, i, index) {
                     result.innerHTML = `${symbol} WON !`;
                     return roundWon = true;
                 }
+                if(counter2 < counter1 ){
+                    value = 1;
+                    getAdjacent(symbol, counter, arr, (i), (index), false, value);
+                    console.log(`Counter 1 is ${counter1}`);
+                    console.log(`Counter 2 is ${counter2}`);
+                    counter = counter1 + counter2;
+                    console.log(`Count ${symbol} is = ${counter}`);
+                    if(counter == winNumber){
+                        result.innerHTML = `${symbol} WON !`;
+                        return roundWon = true;
+                    }
+                    if(counter2 < counter1 ){
+                        value = 1;
+                        getAdjacent(symbol, counter, arr, (i), (index), true, value);
+                        console.log(`Counter 1 is ${counter1}`);
+                        console.log(`Counter 2 is ${counter2}`);
+                        counter = counter1 + counter2;
+                        console.log(`Count ${symbol} is = ${counter}`);
+                        if(counter == winNumber){
+                            result.innerHTML = `${symbol} WON !`;
+                            return roundWon = true;
+                        }
+                    }
+                }
             }
         }
         else if ((counter == 2 && top == symbol)) {
@@ -325,6 +373,30 @@ function catchX(symbol, counter, arr, i, index) {
                     result.innerHTML = `${symbol} WON !`;
                     return roundWon = true;
                 }
+                if(counter2 < counter1 ){
+                    value = 4;
+                    getAdjacent(symbol, counter, arr, i, (index), true, value);
+                    console.log(`Counter 1 is ${counter1}`);
+                    console.log(`Counter 2 is ${counter2}`);
+                    counter = counter1 + counter2;
+                    console.log(`Count ${symbol} is = ${counter}`);
+                    if(counter == winNumber){
+                        result.innerHTML = `${symbol} WON !`;
+                        return roundWon = true;
+                    }
+                    if(counter2 < counter1 ){
+                        value = 4;
+                        getAdjacent(symbol, counter, arr, i, (index), true, value);
+                        console.log(`Counter 1 is ${counter1}`);
+                        console.log(`Counter 2 is ${counter2}`);
+                        counter = counter1 + counter2;
+                        console.log(`Count ${symbol} is = ${counter}`);
+                        if(counter == winNumber){
+                            result.innerHTML = `${symbol} WON !`;
+                            return roundWon = true;
+                        }
+                    }
+                }
             }
         }
         else if ((counter == 2 && topLeft == symbol)) {
@@ -357,6 +429,30 @@ function catchX(symbol, counter, arr, i, index) {
                 if(counter == winNumber){
                     result.innerHTML = `${symbol} WON !`;
                     return roundWon = true;
+                }
+                if(counter2 < counter1 ){
+                    value = 3;
+                    getAdjacent(symbol, counter, arr, i, (index), true, value);
+                    console.log(`Counter 1 is ${counter1}`);
+                    console.log(`Counter 2 is ${counter2}`);
+                    counter = counter1 + counter2;
+                    console.log(`Count ${symbol} is = ${counter}`);
+                    if(counter == winNumber){
+                        result.innerHTML = `${symbol} WON !`;
+                        return roundWon = true;
+                    }
+                    if(counter2 < counter1 ){
+                        value = 3;
+                        getAdjacent(symbol, counter, arr, i, (index), true, value);
+                        console.log(`Counter 1 is ${counter1}`);
+                        console.log(`Counter 2 is ${counter2}`);
+                        counter = counter1 + counter2;
+                        console.log(`Count ${symbol} is = ${counter}`);
+                        if(counter == winNumber){
+                            result.innerHTML = `${symbol} WON !`;
+                            return roundWon = true;
+                        }
+                    }
                 }
             }
         }
