@@ -262,7 +262,7 @@ function catchX(symbol, counter, arr, i, index) {
             getAdjacent(symbol, counter, arr, i, (index - 1), false);
 
         }
-        else if (counter == 2 && midRight == symbol && (top != symbol && bot != symbol )
+        else if (counter == 2 && midRight == symbol && (top != symbol && bot != symbol ) )
             
             getAdjacent(symbol, counter, arr, i, (index + 1), true);
         
