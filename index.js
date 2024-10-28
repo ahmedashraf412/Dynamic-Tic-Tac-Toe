@@ -268,7 +268,10 @@ function catchX(symbol, counter, arr, i, index) {
         
     }
      if (top == symbol || bot == symbol) {
-        counter++
+         if( counter < 2 ) {
+             counter++
+         }
+        
         console.log(`Counter ${symbol} is now ${counter}`);
         if (counter == 2 && top == symbol && bot == symbol) {
             getAdjacent(symbol, counter, arr, i, (index), false);
